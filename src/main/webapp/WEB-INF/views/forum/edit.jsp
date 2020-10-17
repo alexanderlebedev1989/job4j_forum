@@ -1,5 +1,5 @@
+<%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!doctype html>
 <html lang="en">
 <head>
@@ -17,41 +17,28 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
-    <title>Форум job4j</title>
+    <title>Forum</title>
 </head>
 <body>
-<div class="container">
+<div class="container pt-3">
     <div class="row">
-        <ul class="nav">
-            <li class="nav-item">
-                <a class="nav-link" href="<c:url value='/create'/>">Добавить публикацию</a>
-            </li>
-        </ul>
-    </div>
-</div>
-<div class="container mt-3">
-    <div class="row">
-        <h4>Форум job4j</h4>
-    </div>
-    <div class="row">
-        <table class="table">
-            <thead>
-            <tr>
-                <th scope="col">Темы</th>
-                <th scope="col">Дата создания</th>
-                <th scope="col">#</th>
-            </tr>
-            </thead>
-            <tbody>
-            <c:forEach items="${posts}" var="post">
-                <tr>
-                    <td><a href="<c:url value ='/post?id=${post.id}'/>"><c:out value="${post.name}"/></a></td>
-                    <td><c:out value="${post.created.time}"/></td>
-                    <td><a href="<c:url value='/delete?id=${post.id}'/>">Удалить</a></td>
-                </tr>
-            </c:forEach>
-            </tbody>
-        </table>
+        <div class="card" style="width: 100%">
+            <div class="card-header">
+                Редактирование публикации
+            </div>
+            <div class="card-body">
+                <form action="<c:url value='/edit'/>" method='POST'>
+                    <div class="form-group">
+                        <label>Название</label>
+                        <input type="text" name="name" value="${post.name}" class="form-control">
+                        <label>Описание</label>
+                        <input type="text" name="desc" value="${post.desc}" class="form-control">
+                        <input type="hidden" name="id" value="${post.id}">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 </body>
