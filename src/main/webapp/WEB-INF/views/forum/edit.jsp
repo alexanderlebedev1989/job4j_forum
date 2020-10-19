@@ -32,7 +32,7 @@
                         <label>Название</label>
                         <input type="text" name="name" value="${post.name}" class="form-control">
                         <label>Описание</label>
-                        <input type="text" name="desc" value="${post.desc}" class="form-control">
+                        <input type="text" name="description" value="${post.description}" class="form-control">
                         <input type="hidden" name="id" value="${post.id}">
                     </div>
                     <button type="submit" class="btn btn-primary">Сохранить</button>

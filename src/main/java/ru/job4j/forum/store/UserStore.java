@@ -19,7 +19,7 @@ public class UserStore {
 
     public void save(User user) {
         user.setId(count.incrementAndGet());
-        users.put(user.getLogin(), user);
+        users.put(user.getName(), user);
     }
 
     public boolean checkReg(String name, String password) {
@@ -28,6 +28,6 @@ public class UserStore {
 
     public boolean checkLogin(String name, String password) {
         User user = users.get(name);
-        return user.getLogin().equals(name) && user.getPassword().equals(password);
+        return user.getName().equals(name) && user.getPassword().equals(password);
     }
 }

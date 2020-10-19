@@ -22,6 +22,15 @@
     <title>Форум job4j</title>
 </head>
 <body>
+<div class="container">
+<div class="row">
+    <ul class="nav">
+        <li class="nav-item">
+            <a class="nav-link" href="<c:url value='/index'/>">Вернуться на главную</a>
+        </li>
+    </ul>
+</div>
+</div>
 <div class="container pt-3">
     <div class="row">
         <div class="card" style="width: 100%">
@@ -41,7 +50,7 @@
                     <tbody>
                     <tr>
                         <td><c:out value="${post.name}"/></td>
-                        <td><c:out value="${post.desc}"/></td>
+                        <td><c:out value="${post.description}"/></td>
                         <td><c:out value="${post.created.time}"/></td>
                         <td><a href="<c:url value='/edit?id=${post.id}'/>">Редактировать</a></td>
                     </tr>
@@ -69,7 +78,7 @@
                     <tbody>
                     <c:forEach items="${comments}" var="comment">
                         <tr>
-                            <td><a href="<c:url value ='/post?id=${post.id}'/>"><c:out value="${comment.desc}"/></a></td>
+                            <td><c:out value="${comment.description}"/></td>
                             <td><c:out value="${comment.calendar.time}"/></td>
                             <td><a href="<c:url value='/deleteComment?idComm=${comment.id}&idPost=${post.id}'/>">Удалить</a></td>
                         </tr>
@@ -90,7 +99,7 @@
                 <form action="<c:url value='/addComment'/>" method="POST">
                     <div class="form-group">
                         <label>Добавить комментарий</label>
-                        <input type="text" name="desc" class="form-control">
+                        <input type="text" name="description" class="form-control">
                         <input type="hidden" name="id" value="${post.id}">
                     </div>
                     <button type="submit" class="btn btn-primary">Сохранить</button>

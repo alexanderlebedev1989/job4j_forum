@@ -1,16 +1,24 @@
 package ru.job4j.forum.model;
 
+import javax.persistence.*;
 import java.util.Calendar;
 import java.util.Objects;
 
+@Entity
+@Table(name = "comments")
 public class Comment {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String desc;
-    private Calendar calendar;
+    private String description;
+    private Calendar created;
+    @ManyToOne
+    @JoinColumn(name = "post_id")
+    private Post post;
 
     private static Comment of(String desc) {
         Comment comment = new Comment();
-        comment.desc = desc;
+        comment.description = desc;
         return comment;
     }
 
@@ -22,20 +30,28 @@ public class Comment {
         this.id = id;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDescription(String desc) {
+        this.description = desc;
     }
 
     public Calendar getCalendar() {
-        return calendar;
+        return created;
     }
 
-    public void setCalendar(Calendar calendar) {
-        this.calendar = calendar;
+    public void setCalendar(Calendar created) {
+        this.created = created;
+    }
+
+    public Post getPost() {
+        return post;
+    }
+
+    public void setPost(Post post) {
+        this.post = post;
     }
 
     @Override
@@ -48,12 +64,12 @@ public class Comment {
         }
         Comment comment = (Comment) o;
         return id == comment.id
-                && Objects.equals(desc, comment.desc)
-                && Objects.equals(calendar, comment.calendar);
+                && Objects.equals(description, comment.description)
+                && Objects.equals(created, comment.created);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, desc, calendar);
+        return Objects.hash(id, description, created);
     }
 }

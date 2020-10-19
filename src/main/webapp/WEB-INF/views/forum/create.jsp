@@ -32,7 +32,7 @@
                         <label>Название</label>
                         <input type="text" name="name" class="form-control">
                         <label>Описание</label>
-                        <input type="text" name="desc" class="form-control">
+                        <input type="text" name="description" class="form-control">
                     </div>
                     <button type="submit" class="btn btn-primary">Сохранить</button>
                 </form>

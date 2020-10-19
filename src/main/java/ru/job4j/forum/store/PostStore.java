@@ -3,7 +3,6 @@ package ru.job4j.forum.store;
 import org.springframework.stereotype.Repository;
 import ru.job4j.forum.model.Comment;
 import ru.job4j.forum.model.Post;
-import ru.job4j.forum.model.User;
 
 import java.util.Calendar;
 import java.util.Collection;
@@ -33,7 +32,7 @@ public class PostStore {
     public void update(String name, String desc, int id) {
         Post post = findBiId(id);
         post.setName(name);
-        post.setDesc(desc);
+        post.setDescription(desc);
         posts.put(post.getId(), post);
     }
 

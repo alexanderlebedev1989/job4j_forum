@@ -8,14 +8,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.job4j.forum.model.Comment;
 import ru.job4j.forum.model.Post;
-import ru.job4j.forum.service.PostService;
+import ru.job4j.forum.service.PostServiceJdbc;
 
 @Controller
 public class PostControl {
 
-    private PostService service;
+    private PostServiceJdbc service;
 
-    public PostControl(PostService service) {
+    public PostControl(PostServiceJdbc service) {
         this.service = service;
     }
 
@@ -26,7 +26,7 @@ public class PostControl {
 
     @PostMapping("/create")
     public String create(@ModelAttribute Post post) {
-        service.save(post);
+        service.savePost(post);
         return "redirect:/index";
     }
 
@@ -50,9 +50,11 @@ public class PostControl {
     @PostMapping("/edit")
     public String edit(@RequestParam("name") String name,
                        @RequestParam("desc") String desc,
-                       @RequestParam("id") int id,
-                       Model model) {
-        service.update(name, desc, id);
+                       @RequestParam("id") int id) {
+        Post post = service.findByIdPost(id);
+        post.setName(name);
+        post.setDescription(desc);
+        service.savePost(post);
         return "redirect:/post?id=" + id;
     }
 
@@ -65,7 +67,10 @@ public class PostControl {
     @PostMapping("/addComment")
     public String addComment(@ModelAttribute Comment comment,
                              @RequestParam("id") int id) {
-        service.saveComment(id, comment);
+        Post post = service.findByIdPost(id);
+        post.addComment(comment);
+        comment.setPost(post);
+        service.saveComment(comment);
         return "redirect:/post?id=" + id;
     }
 
