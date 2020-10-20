@@ -20,6 +20,15 @@
     <title>Forum</title>
 </head>
 <body>
+<div class="container">
+    <div class="row">
+        <ul class="nav">
+            <li class="nav-item">
+                <a class="nav-link" href="<c:url value='/login?logout=true'/>">${user.username}| Выйти</a>
+            </li>
+        </ul>
+    </div>
+</div>
 <div class="container pt-3">
     <div class="row">
         <div class="card" style="width: 100%">

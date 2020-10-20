@@ -14,12 +14,14 @@ public class UserStore {
     private AtomicInteger count = new AtomicInteger(2);
 
     public UserStore() {
-        users.put("root", User.of(1, "root", "12345"));
+        User user = User.of("root", "12345");
+        user.setId(1);
+        users.put("root", user);
     }
 
     public void save(User user) {
         user.setId(count.incrementAndGet());
-        users.put(user.getName(), user);
+        users.put(user.getUsername(), user);
     }
 
     public boolean checkReg(String name, String password) {
@@ -28,6 +30,6 @@ public class UserStore {
 
     public boolean checkLogin(String name, String password) {
         User user = users.get(name);
-        return user.getName().equals(name) && user.getPassword().equals(password);
+        return user.getUsername().equals(name) && user.getPassword().equals(password);
     }
 }

@@ -1,7 +1,7 @@
 package ru.job4j.forum.controller;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,9 +12,11 @@ import ru.job4j.forum.service.PostServiceJdbc;
 public class RegControl {
 
     private PostServiceJdbc service;
+    private PasswordEncoder passwordEncoder;
 
-    public RegControl(PostServiceJdbc service) {
+    public RegControl(PostServiceJdbc service, PasswordEncoder passwordEncoder) {
         this.service = service;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping("/reg")
@@ -23,14 +25,11 @@ public class RegControl {
     }
 
     @PostMapping("/reg")
-    public String reg(@ModelAttribute User user, Model model) {
-        if (service.checkReg(user.getName(), user.getPassword())) {
-            service.saveUser(user);
-            return "redirect:/";
-        } else {
-            String errorMessage = "Enter login and password!";
-            model.addAttribute("errorMessage", errorMessage);
-            return "reg";
-        }
+    public String save(@ModelAttribute User user) {
+        user.setEnabled(true);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setAuthority(service.findByAuthority("ROLE_USER"));
+        service.saveUser(user);
+        return "redirect:/login";
     }
 }

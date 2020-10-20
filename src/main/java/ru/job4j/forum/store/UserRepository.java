@@ -5,5 +5,4 @@ import ru.job4j.forum.model.User;
 
 public interface UserRepository extends JpaRepository<User, Integer> {
 
-    User findByNameAndPassword(String name, String password);
 }

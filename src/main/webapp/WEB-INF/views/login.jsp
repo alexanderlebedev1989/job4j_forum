@@ -13,12 +13,16 @@
         </ul>
     </div>
 </div>
-<h4>Авторизация</h4>
-<form action="<c:url value='/'/>" method='POST'>
+<c:if test="${not empty errorMessage}">
+    <div style="color:#ff0000; font-weight: bold; margin: 30px 0px;">
+            ${errorMessage}
+    </div>
+</c:if>
+<form name='login' action="<c:url value='/login'/>" method='POST'>
     <table>
         <tr>
-            <td>Login:</td>
-            <td><input type='text' name='login'></td>
+            <td>UserName:</td>
+            <td><input type='text' name='username'></td>
         </tr>
         <tr>
             <td>Password:</td>
@@ -28,7 +32,7 @@
             <td colspan='2'><input name="submit" type="submit" value="submit" /></td>
         </tr>
     </table>
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 </form>
 </body>
-
 </html>

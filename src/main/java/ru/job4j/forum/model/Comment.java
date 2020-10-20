@@ -34,8 +34,8 @@ public class Comment {
         return description;
     }
 
-    public void setDescription(String desc) {
-        this.description = desc;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Calendar getCalendar() {

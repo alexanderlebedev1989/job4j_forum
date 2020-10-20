@@ -2,9 +2,11 @@ package ru.job4j.forum.service;
 
 import org.springframework.stereotype.Service;
 
+import ru.job4j.forum.model.Authority;
 import ru.job4j.forum.model.Comment;
 import ru.job4j.forum.model.Post;
 import ru.job4j.forum.model.User;
+import ru.job4j.forum.store.AuthorityRepository;
 import ru.job4j.forum.store.CommentRepository;
 import ru.job4j.forum.store.PostRepository;
 import ru.job4j.forum.store.UserRepository;
@@ -20,13 +22,16 @@ public class PostServiceJdbc {
     private PostRepository posts;
     private CommentRepository comments;
     private UserRepository users;
+    AuthorityRepository authorities;
 
     public PostServiceJdbc(PostRepository posts,
                            CommentRepository comments,
-                           UserRepository users) {
+                           UserRepository users,
+                           AuthorityRepository authorities) {
         this.posts = posts;
         this.comments = comments;
         this.users = users;
+        this.authorities = authorities;
 
     }
 
@@ -76,11 +81,8 @@ public class PostServiceJdbc {
     public void saveUser(User user) {
         users.save(user);
     }
-    public User findByNameAndPassword(String login, String password) {
-        return users.findByNameAndPassword(login, password);
-    }
 
-    public boolean checkReg(String name, String password) {
-        return !name.equals("") && !password.equals("");
+    public Authority findByAuthority(String authority) {
+        return authorities.findByAuthority(authority);
     }
 }

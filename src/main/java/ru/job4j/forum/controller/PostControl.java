@@ -1,5 +1,6 @@
 package ru.job4j.forum.controller;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +21,8 @@ public class PostControl {
     }
 
     @GetMapping("/create")
-    public String create() {
+    public String create(Model model) {
+        model.addAttribute("user", SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         return "forum/create";
     }
 
@@ -35,6 +37,7 @@ public class PostControl {
         Post post = service.findByIdPost(id);
         model.addAttribute("post", post);
         model.addAttribute("comments", post.getComments());
+        model.addAttribute("user", SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         return "post";
 
     }
@@ -43,13 +46,14 @@ public class PostControl {
     public String edit(@RequestParam("id") int id, Model model) {
         Post post = service.findByIdPost(id);
         model.addAttribute("post", post);
+        model.addAttribute("user", SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         return "forum/edit";
 
     }
 
     @PostMapping("/edit")
     public String edit(@RequestParam("name") String name,
-                       @RequestParam("desc") String desc,
+                       @RequestParam("description") String desc,
                        @RequestParam("id") int id) {
         Post post = service.findByIdPost(id);
         post.setName(name);
