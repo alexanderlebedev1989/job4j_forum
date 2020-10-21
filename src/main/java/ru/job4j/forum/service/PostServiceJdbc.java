@@ -22,7 +22,7 @@ public class PostServiceJdbc {
     private PostRepository posts;
     private CommentRepository comments;
     private UserRepository users;
-    AuthorityRepository authorities;
+    private AuthorityRepository authorities;
 
     public PostServiceJdbc(PostRepository posts,
                            CommentRepository comments,
