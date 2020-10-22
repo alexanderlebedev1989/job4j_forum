@@ -11,6 +11,8 @@ import ru.job4j.forum.model.Comment;
 import ru.job4j.forum.model.Post;
 import ru.job4j.forum.service.PostServiceJdbc;
 
+import java.util.Calendar;
+
 @Controller
 public class PostControl {
 
@@ -69,9 +71,10 @@ public class PostControl {
     }
 
     @PostMapping("/addComment")
-    public String addComment(@ModelAttribute Comment comment,
+    public String addComment(@RequestParam ("description") String desc,
                              @RequestParam("id") int id) {
         Post post = service.findByIdPost(id);
+        Comment comment = Comment.of(desc, Calendar.getInstance());
         post.addComment(comment);
         comment.setPost(post);
         service.saveComment(comment);

@@ -16,9 +16,10 @@ public class Comment {
     @JoinColumn(name = "post_id")
     private Post post;
 
-    private static Comment of(String desc) {
+    public static Comment of(String desc, Calendar created) {
         Comment comment = new Comment();
         comment.description = desc;
+        comment.created = created;
         return comment;
     }
 
@@ -65,11 +66,12 @@ public class Comment {
         Comment comment = (Comment) o;
         return id == comment.id
                 && Objects.equals(description, comment.description)
-                && Objects.equals(created, comment.created);
+                && Objects.equals(created, comment.created)
+                && Objects.equals(post, comment.post);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, description, created);
+        return Objects.hash(id, description, created, post);
     }
 }
